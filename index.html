@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>youtube api app</title>
+</head>
+
+<body>
+    <header>
+        <h1>Youtube Data-API App</h1>
+    </header>
+    <main>
+        <form class="wrapper">
+            <input type="text" class="input" placeholder="search">
+            <button class="searchbtn">
+                <i class="icon">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </i>
+            </button>
+            <div id="clearAll">
+                <i>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </i>
+            </div>
+        </form>
+        <div id="channelInfo"></div><br>
+        
+        <section>
+            <div id="videos"></div>
+        </section>
+    </main>
+    <script src="./app.js"></script>
+</body>
+
+</html>
