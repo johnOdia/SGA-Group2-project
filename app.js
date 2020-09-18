@@ -7,13 +7,13 @@ $(function () {
     //key
     const API_KEY = 'AIzaSyDbQowDf3wo5fsSXQlu2eRKskZ_er6RiIA'
 
-
+   
     let videos = $('#videos')
 
     //EVENT HANDLER
     $('form').on('submit', handleFormSubmit)
     $('#channelInfo').on('click', getVids)
-    $('#clearAll').on('click', clearAll)
+    $('#clearAll').on('click',clearAll)
 
     // addChannel()
 
@@ -53,40 +53,40 @@ $(function () {
        </ul>
      `
             $('#channelInfo').append(output)
-
+           
 
         })
-
+        
     }
 
 
     //get videos in  channel playlist from API
     function getVids(e) {
-        videos.html('')
         let title
         let channels = getChannels()
-        if ($(e.target).text() === 'View videos') {
-            title = getTitle($(e.target).closest('ul').children('.li-top').text())
+        if ($(e.target).text() === 'View videos'){
+             videos.html('')
+             title = getTitle($(e.target).closest('ul').children('.li-top').text())
+             console.log(title)
+             channels.forEach(val => {
+                 if(title === val.snippet.title){
+                     console.log(val.snippet.title)
+                     playListId = val.contentDetails.relatedPlaylists.uploads
+                 }
+             })
+             
+             $.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=16&playlistId=${playListId}&key=${API_KEY}`,
+                 function (data) {
+                     $.each(data.items, function (i, item) {
+                         let videoId = item.snippet.resourceId.videoId
+     
+                         let output = `<div id='vidDisplay' style='display:inherit'> <iframe width="300px" height="300px" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+     
+                         $('#videos').append(output)
+                     })
+                 }
+             )
         }
-        console.log(title)
-        channels.forEach(val => {
-            if (title === val.snippet.title) {
-                console.log(val.snippet.title)
-                playListId = val.contentDetails.relatedPlaylists.uploads
-            }
-        })
-
-        $.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=14&playlistId=${playListId}&key=${API_KEY}`,
-            function (data) {
-                $.each(data.items, function (i, item) {
-                    let videoId = item.snippet.resourceId.videoId
-
-                    let output = `<div style='display:inherit'> <iframe class="frame" height="auto" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
-
-                    $('#videos').append(output)
-                })
-            }
-        )
     }
 
 
@@ -108,14 +108,14 @@ $(function () {
         return channels;
     }
 
-    function addChannel(channel) {
+    function addChannel(channel){
         const channels = getChannels()
         channels.push(channel);
         localStorage.setItem('channels', JSON.stringify(channels));
     }
 
 
-    let renderFroMStorage = (function () {
+    let renderFroMStorage = (function(){
         console.log(getChannels())
         let channels = getChannels()
         $.each(channels, function (i, item) {
@@ -134,21 +134,21 @@ $(function () {
             $('#displayVideos').on('click', getVids)
 
         })
-    })()
+    })() 
 
-    function getTitle(string) {
+    function getTitle(string){
         let newString = ''
         let splitted = [...string]
-        splitted.splice(0, 7)
+        splitted.splice(0,7)
         splitted.forEach(val => {
-            if (typeof (val) === 'string') {
+            if(typeof(val) === 'string'){
                 newString += val
             }
         })
         return newString
     }
 
-    function clearAll() {
+    function clearAll(){
         $('#channelInfo').html('')
         videos.html('')
         localStorage.clear()
