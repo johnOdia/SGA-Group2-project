@@ -80,7 +80,7 @@ $(function () {
                      $.each(data.items, function (i, item) {
                          let videoId = item.snippet.resourceId.videoId
      
-                         let output = `<div id='vidDisplay' style='display:inherit'> <iframe width="300px" height="300px" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+                         let output = `<div id='vidDisplay' style='display:inherit'> <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
      
                          $('#videos').append(output)
                      })
