@@ -147,6 +147,7 @@ $(function () {
     function clearAll(){
         $('#channelInfo').html('')
         videos.html('')
+        $('.view').text('View Videos:')
         localStorage.clear()
     }
 
