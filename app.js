@@ -23,7 +23,6 @@ $(function () {
         e.preventDefault()
         searchForChannel = $('input').val()
         $('input').val('')
-        // $('#channelInfo').html('')
 
         getChannel(searchForChannel)
     }
@@ -35,7 +34,6 @@ $(function () {
     function getChannel(searchForChannel) {
         $.get(`https://www.googleapis.com/youtube/v3/channels/?part=snippet%2CcontentDetails%2Cstatistics&forUsername=${searchForChannel}&maxResults=10&key=${API_KEY}`, function (response) {
             if (response.pageInfo.totalResults === 0) alert('No Youtube channel by that name!')
-            console.log(response)
             render(response)
             addChannel(response.items[0])
         })
@@ -67,15 +65,14 @@ $(function () {
         if ($(e.target).text() === 'View videos'){
              videos.html('')
              title = getTitle($(e.target).closest('ul').children('.li-top').text())
-             console.log(title)
+             $('.view').text(`Latest videos for ${title}`)
              channels.forEach(val => {
                  if(title === val.snippet.title){
-                     console.log(val.snippet.title)
                      playListId = val.contentDetails.relatedPlaylists.uploads
                  }
              })
              
-             $.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=16&playlistId=${playListId}&key=${API_KEY}`,
+             $.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=15&playlistId=${playListId}&key=${API_KEY}`,
                  function (data) {
                      $.each(data.items, function (i, item) {
                          let videoId = item.snippet.resourceId.videoId
@@ -104,7 +101,6 @@ $(function () {
         } else {
             channels = JSON.parse(localStorage.getItem('channels'));
         }
-        // localStorage.setItem('tasks', JSON.stringify('tasks'));
         return channels;
     }
 
