@@ -15,8 +15,6 @@ $(function () {
     $('#channelInfo').on('click', getVids)
     $('#clearAll').on('click',clearAll)
 
-    // addChannel()
-
 
     //get user input from form and pass it as an argument to the getChannel function which makes the a request to the API
     function handleFormSubmit(e) {
@@ -50,11 +48,8 @@ $(function () {
          <button id='displayVideos'  class='btn btn-danger'>View videos</button>
        </ul>
      `
-            $('#channelInfo').append(output)
-           
-
-        })
-        
+            $('#channelInfo').append(output)     
+        })   
     }
 
 
@@ -65,7 +60,7 @@ $(function () {
         if ($(e.target).text() === 'View videos'){
              videos.html('')
              title = getTitle($(e.target).closest('ul').children('.li-top').text())
-             $('.view').text(`Latest videos for ${title}`)
+             $('.view').text(`Latest videos for ${title}:`)
              channels.forEach(val => {
                  if(title === val.snippet.title){
                      playListId = val.contentDetails.relatedPlaylists.uploads
@@ -112,7 +107,6 @@ $(function () {
 
 
     let renderFroMStorage = (function(){
-        console.log(getChannels())
         let channels = getChannels()
         $.each(channels, function (i, item) {
             playListId = item.contentDetails.relatedPlaylists.uploads
@@ -153,9 +147,3 @@ $(function () {
 
 
 })
-
-
-
-
-
-
